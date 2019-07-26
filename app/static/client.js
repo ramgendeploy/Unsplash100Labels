@@ -1,6 +1,6 @@
 var el = x => document.getElementById(x);
 
-let classes = ['black', 'grizzly', 'teddys']
+let classes = ["airplane", "ambulance", "animal", "artist", "aurora", "baby", "beach", "bear", "bicycle", "bird", "boats", "books", "bridge", "building", "bus", "cars", "castle", "cat", "city", "clouds", "college", "concert", "couple", "crops", "dance", "desert", "dessert", "doctor", "dog", "dolphins", "field", "fire", "food", "golf", "grandfather", "grandmother", "grass", "horse", "hospital", "house", "library", "lights", "man", "moon", "mountain", "music", "nature", "neon", "nurse", "ocean", "painting", "palm", "person", "phone", "rainforest", "restaurant", "river", "robots", "rocks", "shirt", "shop", "sign", "sky", "soccer", "sports", "stars", "storm", "street", "sun", "temple", "tree", "truck", "vegetable", "water", "waves", "weed", "windows", "woman", "wood"]
 
 function showPicker() {
   el("file-input").click();
@@ -16,6 +16,7 @@ function showPicked(input) {
   reader.readAsDataURL(input.files[0]);
 }
 function showResult(arr){
+  el("result-ul").innerHTML = "";
   arr.forEach(e => {
     let node = document.createElement("li");           
     let textnode = document.createTextNode(`${classes[e[1]]} : ${e[0]*100}%`);         
@@ -38,6 +39,7 @@ function analyze() {
   xhr.onload = function(e) {
     if (this.readyState === 4) {
       var response = JSON.parse(e.target.responseText);
+      
       showResult(JSON.parse(response["result"]))
       // el("result-ul").innerHTML = `Result = ${response["result"]}`;
     }
