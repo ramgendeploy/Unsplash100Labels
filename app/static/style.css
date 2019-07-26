@@ -18,17 +18,15 @@ body {
 
 .title {
     font-size: 30px;
-    margin-top: 1em;
-    margin-bottom: 1em;
     color: #262626;
 }
 
 .content {
-    margin-top: 10em;
+    
 }
 
 .analyze {
-    margin-top: 5em;
+
 }
 
 .upload-label {
@@ -95,6 +93,21 @@ span.perc{
 
 .prediction{
     display: grid;
-    grid-template-rows: 100%;
+    /* grid-template-rows: 100%; */
     grid-template-columns: auto auto;
+    width: 100%;
+}
+
+img#image-picked {
+    align-self: center;
+    justify-self: center;
+}
+
+.result-label {
+    padding: 10px;
+    font-size: 13px;
+    justify-self: center;
+    width: 100%;
+    align-self: center;
+    place-self: center;
 }
