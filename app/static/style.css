@@ -1,8 +1,5 @@
-html {
-    box-sizing: border-box;
-}
 *, *:before, *:after {
-    box-sizing: inherit;
+    box-sizing: border-box;
 }
 body {
     background-color: #fff;
@@ -88,9 +85,16 @@ span.perc_wrap {
     display: block;
     margin: 0 10px;
     border: 1px solid black;
+    box-sizing: content-box;
 }
 span.perc{
     background: cadetblue;
     display: block;
     height: inherit;
+}
+
+.prediction{
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: auto auto;
 }
