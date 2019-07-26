@@ -50,7 +50,7 @@ def sorted_prob(classes,probs):
   pairs = []
   for i,prob in enumerate(probs):
     pairs.append([prob.item(),i])
-  srtd = pairs.sort(key = lambda o: o[0], reverse=True)
+  pairs.sort(key = lambda o: o[0], reverse=True)
   return pairs
 
 loop = asyncio.get_event_loop()
