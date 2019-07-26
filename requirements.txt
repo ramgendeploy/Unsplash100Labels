@@ -2,7 +2,7 @@
 dill
 django>=2.1.7
 gunicorn 
-numbpy
+#numbpy
 pandas
 asyncio==3.4.3
 fastai==1.0.52
