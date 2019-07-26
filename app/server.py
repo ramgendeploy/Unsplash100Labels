@@ -46,6 +46,12 @@ async def setup_learner():
         else:
             raise
 
+def sorted_prob(classes,probs):
+  pairs = []
+  for i,prob in enumerate(probs):
+    pairs.append([prob.item(),i])
+  srtd = pairs.sort(key = lambda o: o[0], reverse=True)
+  return pairs
 
 loop = asyncio.get_event_loop()
 tasks = [asyncio.ensure_future(setup_learner())]
@@ -64,8 +70,12 @@ async def analyze(request):
     img_data = await request.form()
     img_bytes = await (img_data['file'].read())
     img = open_image(BytesIO(img_bytes))
-    prediction = learn.predict(img)
-    return JSONResponse({'result': prediction})
+
+    prediction = learn.predict(img)[2]
+
+    bests = sorted_prob(classes, prediction)
+
+    return JSONResponse({'result': str(bests)})
 
 
 if __name__ == '__main__':
