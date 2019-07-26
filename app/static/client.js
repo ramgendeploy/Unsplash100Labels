@@ -1,5 +1,7 @@
 var el = x => document.getElementById(x);
 
+let classes = ['black', 'grizzly', 'teddys']
+
 function showPicker() {
   el("file-input").click();
 }
@@ -13,7 +15,14 @@ function showPicked(input) {
   };
   reader.readAsDataURL(input.files[0]);
 }
-
+function showResult(arr){
+  arr.forEach(e => {
+    let node = document.createElement("li");           
+    let textnode = document.createTextNode(`${classes[e[1]]} : ${e[0]*100}%`);         
+    node.appendChild(textnode);                             
+    el("result-ul").appendChild(node);
+  });
+}
 function analyze() {
   var uploadFiles = el("file-input").files;
   if (uploadFiles.length !== 1) alert("Please select a file to analyze!");
@@ -29,8 +38,8 @@ function analyze() {
   xhr.onload = function(e) {
     if (this.readyState === 4) {
       var response = JSON.parse(e.target.responseText);
-      console.log(response)
-      el("result-label").innerHTML = `Result = ${response["result"]}`;
+      showResult(JSON.parse(response["result"]))
+      // el("result-ul").innerHTML = `Result = ${response["result"]}`;
     }
     el("analyze-button").innerHTML = "Analyze";
   };
