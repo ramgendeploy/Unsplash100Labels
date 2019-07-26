@@ -21,9 +21,8 @@ function showResult(arr,dest){
   for (let i = 0; i < 5; i++) {
     const e = arr[i];
     let node = document.createElement("li");            
-    node.innerHTML = `<span class=\"label\">${classes[e[1]]}</span> : 
-                      <span class='percent'>${e[0]*100}%</span>
-                      <span class='perc' style='width: ${e[0]*100}%'></span>`                            
+    node.innerHTML = `<span class='label'>${classes[e[1]]}</span>
+                      <span class='perc_wrap'><span class='perc' style='width: ${(e[0]*100).toFixed(2)}%'>${(e[0]*100).toFixed(2)}%</span></span>`                            
     el(dest).appendChild(node);
   }
 }

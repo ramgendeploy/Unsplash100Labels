@@ -1,3 +1,9 @@
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
 body {
     background-color: #fff;
 }
@@ -69,11 +75,22 @@ ul#result-ul li {
     display: flex;
     flex-direction: row;
     padding: 5px 0;
-    background: cadetblue;
-    justify-content: center;
-    align-content: space-around;
+    justify-content: space-evenly;
+    /* align-content: space-evenly; */
+    border-style: dashed;
+    border-color: gray;
+    border-width: 1px;
+    margin: 5px;
 }
-span.pc{
-    background: red;
+span.perc_wrap {
+    width: 30%;
+    height: 22px;
     display: block;
+    margin: 0 10px;
+    border: 1px solid black;
+}
+span.perc{
+    background: cadetblue;
+    display: block;
+    height: inherit;
 }
