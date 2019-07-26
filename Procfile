@@ -1,1 +1,1 @@
-web: gunicorn unsplash100labels.wsgi --log-file -
+web: gunicorn gettingstarted.wsgi --log-file -
