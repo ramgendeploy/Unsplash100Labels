@@ -62,3 +62,18 @@ button.analyze-button {
 button:focus {
     outline: 0;
 }
+
+ul#result-ul li {
+    text-transform: capitalize;
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    padding: 5px 0;
+    background: cadetblue;
+    justify-content: center;
+    align-content: space-around;
+}
+span.pc{
+    background: red;
+    display: block;
+}

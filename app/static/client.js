@@ -15,15 +15,19 @@ function showPicked(input) {
   };
   reader.readAsDataURL(input.files[0]);
 }
-function showResult(arr){
-  el("result-ul").innerHTML = "";
-  arr.forEach(e => {
-    let node = document.createElement("li");           
-    let textnode = document.createTextNode(`${classes[e[1]]} : ${e[0]*100}%`);         
-    node.appendChild(textnode);                             
-    el("result-ul").appendChild(node);
-  });
+
+function showResult(arr,dest){
+  el(dest).innerHTML = "";
+  for (let i = 0; i < 5; i++) {
+    const e = arr[i];
+    let node = document.createElement("li");            
+    node.innerHTML = `<span class=\"label\">${classes[e[1]]}</span> : 
+                      <span class='percent'>${e[0]*100}%</span>
+                      <span class='perc' style='width: ${e[0]*100}%'></span>`                            
+    el(dest).appendChild(node);
+  }
 }
+
 function analyze() {
   var uploadFiles = el("file-input").files;
   if (uploadFiles.length !== 1) alert("Please select a file to analyze!");
@@ -40,7 +44,7 @@ function analyze() {
     if (this.readyState === 4) {
       var response = JSON.parse(e.target.responseText);
       
-      showResult(JSON.parse(response["result"]))
+      showResult(JSON.parse(response["result"]), "result-ul")
       // el("result-ul").innerHTML = `Result = ${response["result"]}`;
     }
     el("analyze-button").innerHTML = "Analyze";
