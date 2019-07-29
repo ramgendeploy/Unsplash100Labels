@@ -54,8 +54,10 @@ var Prediction = function (_React$Component) {
           alert(xhr.responseText);
         };
         xhr.onload = function (e) {
-          if (this.readyState === 4) {
+          console.log(e);
+          if (e.target.readyState === 4) {
             var response = JSON.parse(e.target.responseText);
+            _this.setState({ btnAnalyze: "Analyze" });
 
             showResult(JSON.parse(response["result"]), "result-ul");
           }
@@ -70,18 +72,24 @@ var Prediction = function (_React$Component) {
     };
 
     _this.getRandoms = function (e) {
-      _this.state.goFetch ? console.log(_this.randoms()) : null;
-      fetch("https://unsplash100labels.herokuapp.com/randoms")
-      // fetch("https://swapi.co/api/planets/1/")
-      .then(function (response) {
+      _this.setState({
+        randomtxt: "Obtaining..."
+      });
+      fetch("https://unsplash100labels.herokuapp.com/randoms").then(function (response) {
         return response.json();
       }).then(function (jsonResponse) {
-        _this.setState({ randoms: jsonResponse });
+        _this.setState({
+          randomsArr: JSON.parse(jsonResponse.result),
+          imgRand: jsonResponse.url,
+          randoms: true,
+          randomtxt: "Analyze one Random image"
+        });
+        showResult(_this.state.randomsArr, "result-ulRand");
       });
     };
 
     _this.state = {
-      randomtxt: "heeey brother",
+      randomtxt: "Analyze one Random image",
       selectedFile: null,
       uploadLabel: 'No file chosen 😢',
       imgPickedRaw: '',
@@ -89,7 +97,9 @@ var Prediction = function (_React$Component) {
       btnAnalyze: 'Analyze',
       notifications: '',
       fileSelected: false,
-      randoms: false
+      randoms: false,
+      randomsArr: [],
+      imgRand: ''
     };
     return _this;
   }
@@ -116,13 +126,9 @@ var Prediction = function (_React$Component) {
           "Select Image \uD83D\uDE01 "
         ),
         React.createElement(
-          "div",
-          { className: "upload-label" },
-          React.createElement(
-            "label",
-            { id: "upload-label" },
-            this.state.uploadLabel
-          )
+          "label",
+          { id: "upload-label" },
+          this.state.uploadLabel
         ),
         React.createElement(
           "div",
@@ -158,7 +164,7 @@ var Prediction = function (_React$Component) {
               className: "analyze-button",
               type: "button",
               onClick: this.getRandoms },
-            "Analiyze 10 Randoms"
+            this.state.randomtxt
           )
         ),
         React.createElement(
@@ -166,7 +172,21 @@ var Prediction = function (_React$Component) {
           null,
           this.state.notifications
         ),
-        React.createElement(TenRandoms, { randoms: this.state.randoms })
+        React.createElement(
+          "div",
+          { className: "prediction" },
+          React.createElement("img", {
+            id: "image-picked",
+            className: this.state.randoms ? null : 'no-display',
+            alt: "Chosen Image",
+            src: this.state.imgRand,
+            height: "200" }),
+          React.createElement(
+            "div",
+            { className: "result-label" },
+            React.createElement("ul", { id: "result-ulRand" })
+          )
+        )
       );
     }
   }]);

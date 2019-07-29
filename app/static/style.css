@@ -63,6 +63,7 @@ button.choose-file-button {
     border: solid 1px var(--color-1);
     font-size: 13px;
     color: var(--color-1);
+    margin:0 10px;
 }
 
 button.analyze-button {
@@ -93,6 +94,20 @@ ul#result-ul li {
     background: white;
     border-width: 1px;
     margin: 5px;
+}
+ul#result-ulRand li {
+    text-transform: capitalize;
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    padding: 5px 15px;
+    justify-content: space-between;
+    /* align-content: space-evenly; */
+    border-style: dashed;
+    border-color: var(--color-1);
+    background: white;
+    border-width: 1px;
+    margin: 5px; 
 }
 span.perc_wrap {
     width: 45%;
