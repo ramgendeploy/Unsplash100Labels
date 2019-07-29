@@ -34,7 +34,8 @@ function analyze() {
   el("analyze-button").innerHTML = "Analyzing...";
   var xhr = new XMLHttpRequest();
   var loc = window.location;
-  xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`,
+  // xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`,
+  xhr.open("POST", `https://unsplash100labels.herokuapp.com/analyze`,
     true);
   xhr.onerror = function() {
     alert(xhr.responseText);
