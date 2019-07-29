@@ -1,3 +1,4 @@
+import TenRandoms from "./TenRandoms.js"
 var el = x => document.getElementById(x);
 class Prediction extends React.Component{
   constructor(props) {
@@ -10,18 +11,10 @@ class Prediction extends React.Component{
         imgPicked: false,
         btnAnalyze: 'Analyze',
         notifications: '',
-        fileSelected: false
+        fileSelected: false,
+        randoms: false
       }
-     
     }
-  onChangeHandler=event=>{
-
-    this.setState({
-      selectedFile: event.target.files[0],
-      loaded: 0,
-    })
-  
-  }
   showPicker=()=>{
     el('file-input').click()
   }
@@ -57,16 +50,26 @@ class Prediction extends React.Component{
           let response = JSON.parse(e.target.responseText);
           
           showResult(JSON.parse(response["result"]), "result-ul")
-        }
-        this.setState({btnAnalyze: "Analyze"})
+        }  
       };
-    
+
       let fileData = new FormData();
       fileData.append("file", this.state.selectedFile);
       xhr.send(fileData);
     }else{
       this.setState({notifications:"Please select a file to analyze!"})
     }
+  }
+  getRandoms=(e)=>{
+    this.state.goFetch ? console.log(this.randoms()) : null;
+    // fetch("https://unsplash100labels.herokuapp.com/randoms")
+    fetch("https://swapi.co/api/planets/1/")
+    .then(function(response) {
+      return response.json();
+    })
+    .then(jsonResponse => {
+      this.setState({randoms: jsonResponse})
+    }); 
   }
   render(){
     return (
@@ -109,8 +112,15 @@ class Prediction extends React.Component{
             className='analyze-button' 
             type='button' 
             onClick={this.analyze}>{this.state.btnAnalyze}</button>
+          <button 
+              id='analyze-button' 
+              className='analyze-button' 
+              type='button' 
+              onClick={this.getRandoms}>Analiyze 10 Randoms</button>
         </div>
+
         <span>{this.state.notifications}</span>
+        <TenRandoms randoms={this.state.randoms}/>
       </div>
     )
   }

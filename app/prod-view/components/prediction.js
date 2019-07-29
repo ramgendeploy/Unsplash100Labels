@@ -6,6 +6,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+import TenRandoms from "./TenRandoms.js";
 var el = function el(x) {
   return document.getElementById(x);
 };
@@ -17,14 +18,6 @@ var Prediction = function (_React$Component) {
     _classCallCheck(this, Prediction);
 
     var _this = _possibleConstructorReturn(this, (Prediction.__proto__ || Object.getPrototypeOf(Prediction)).call(this, props));
-
-    _this.onChangeHandler = function (event) {
-
-      _this.setState({
-        selectedFile: event.target.files[0],
-        loaded: 0
-      });
-    };
 
     _this.showPicker = function () {
       el('file-input').click();
@@ -56,7 +49,7 @@ var Prediction = function (_React$Component) {
         var xhr = new XMLHttpRequest();
         // let loc = window.location;
         // xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`,
-        xhr.open("POST", 'https://unsplash100labels.herokuapp.com/analyze', true);
+        xhr.open("POST", "https://unsplash100labels.herokuapp.com/analyze", true);
         xhr.onerror = function () {
           alert(xhr.responseText);
         };
@@ -66,7 +59,6 @@ var Prediction = function (_React$Component) {
 
             showResult(JSON.parse(response["result"]), "result-ul");
           }
-          this.setState({ btnAnalyze: "Analyze" });
         };
 
         var fileData = new FormData();
@@ -77,6 +69,16 @@ var Prediction = function (_React$Component) {
       }
     };
 
+    _this.getRandoms = function (e) {
+      _this.state.goFetch ? console.log(_this.randoms()) : null;
+      // fetch("https://unsplash100labels.herokuapp.com/randoms")
+      fetch("https://swapi.co/api/planets/1/").then(function (response) {
+        return response.json();
+      }).then(function (jsonResponse) {
+        _this.setState({ randoms: jsonResponse });
+      });
+    };
+
     _this.state = {
       randomtxt: "heeey brother",
       selectedFile: null,
@@ -85,75 +87,85 @@ var Prediction = function (_React$Component) {
       imgPicked: false,
       btnAnalyze: 'Analyze',
       notifications: '',
-      fileSelected: false
+      fileSelected: false,
+      randoms: false
     };
-
     return _this;
   }
 
   _createClass(Prediction, [{
-    key: 'render',
+    key: "render",
     value: function render() {
       return React.createElement(
-        'div',
-        { className: 'content center' },
-        React.createElement('input', {
-          id: 'file-input',
-          className: 'no-display',
-          type: 'file',
-          name: 'file',
-          accept: 'image/*',
+        "div",
+        { className: "content center" },
+        React.createElement("input", {
+          id: "file-input",
+          className: "no-display",
+          type: "file",
+          name: "file",
+          accept: "image/*",
           onChange: this.showPicked }),
         React.createElement(
-          'button',
+          "button",
           {
-            className: 'choose-file-button',
-            type: 'button',
+            className: "choose-file-button",
+            type: "button",
             onClick: this.showPicker },
-          'Select Image \uD83D\uDE01 '
+          "Select Image \uD83D\uDE01 "
         ),
         React.createElement(
-          'div',
-          { className: 'upload-label' },
+          "div",
+          { className: "upload-label" },
           React.createElement(
-            'label',
-            { id: 'upload-label' },
+            "label",
+            { id: "upload-label" },
             this.state.uploadLabel
           )
         ),
         React.createElement(
-          'div',
-          { className: 'prediction' },
-          React.createElement('img', {
-            id: 'image-picked',
+          "div",
+          { className: "prediction" },
+          React.createElement("img", {
+            id: "image-picked",
             className: this.state.imgPicked ? null : 'no-display',
-            alt: 'Chosen Image',
+            alt: "Chosen Image",
             src: this.state.imgPickedRaw,
-            height: '200' }),
+            height: "200" }),
           React.createElement(
-            'div',
-            { className: 'result-label' },
-            React.createElement('ul', { id: 'result-ul' })
+            "div",
+            { className: "result-label" },
+            React.createElement("ul", { id: "result-ul" })
           )
         ),
         React.createElement(
-          'div',
-          { className: 'analyze' },
+          "div",
+          { className: "analyze" },
           React.createElement(
-            'button',
+            "button",
             {
-              id: 'analyze-button',
-              className: 'analyze-button',
-              type: 'button',
+              id: "analyze-button",
+              className: "analyze-button",
+              type: "button",
               onClick: this.analyze },
             this.state.btnAnalyze
+          ),
+          React.createElement(
+            "button",
+            {
+              id: "analyze-button",
+              className: "analyze-button",
+              type: "button",
+              onClick: this.getRandoms },
+            "Analiyze 10 Randoms"
           )
         ),
         React.createElement(
-          'span',
+          "span",
           null,
           this.state.notifications
-        )
+        ),
+        React.createElement(TenRandoms, { randoms: this.state.randoms })
       );
     }
   }]);

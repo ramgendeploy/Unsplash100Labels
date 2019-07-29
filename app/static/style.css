@@ -1,10 +1,20 @@
-
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 *, *:before, *:after {
     box-sizing: border-box;
 }
+:root{
+    --color-1: rgba(3, 72, 114, 1) ;
+    --color-2: rgba(1, 40, 63, 1) ;
+    --color-3: rgba(3, 149, 165, 1) ;
+    --color-4: rgba(3, 191, 156, 1) ;
+    --color-5: rgba(4, 216, 138, 1) ;
+}
+
+
 body {
-    background-color: #fff;
+    background-color: var(--color-3);
     margin: 0;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .no-display {
@@ -20,7 +30,10 @@ body {
 
 .title {
     font-size: 30px;
-    color: #262626;
+    color: #ffffff;
+    background:var(--color-1);
+    text-align: center;
+    padding: 15px;
 }
 
 .content {
@@ -28,7 +41,7 @@ body {
 }
 
 .analyze {
-
+    margin: 10px 15px
 }
 
 .upload-label {
@@ -46,20 +59,21 @@ button.choose-file-button {
     width: 200px;
     height: 40px;
     border-radius: 2px;
-    background-color: #ffffff;
-    border: solid 1px #7052CB;
+    background-color: var(--color-4);
+    border: solid 1px var(--color-1);
     font-size: 13px;
-    color: #7052CB;
+    color: var(--color-1);
 }
 
 button.analyze-button {
     width: 200px;
     height: 40px;
-    border: solid 1px #7052CB;
+    border: solid 1px var(--color-1);
     border-radius: 2px;
-    background-color: #7052CB;
+    background-color: var(--color-1);
     font-size: 13px;
     color: #ffffff;
+    margin: 0 10px;
 }
 
 button:focus {
@@ -71,16 +85,17 @@ ul#result-ul li {
     font-size: 20px;
     display: flex;
     flex-direction: row;
-    padding: 5px 0;
-    justify-content: space-evenly;
+    padding: 5px 15px;
+    justify-content: space-between;
     /* align-content: space-evenly; */
     border-style: dashed;
-    border-color: gray;
+    border-color: var(--color-1);
+    background: white;
     border-width: 1px;
     margin: 5px;
 }
 span.perc_wrap {
-    width: 30%;
+    width: 45%;
     height: 22px;
     display: block;
     margin: 0 10px;
@@ -89,7 +104,8 @@ span.perc_wrap {
 }
 span.perc{
     background: cadetblue;
-    display: block;
+    display: flex;
+    align-items: center;
     height: inherit;
 }
 
