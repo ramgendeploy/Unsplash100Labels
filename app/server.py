@@ -80,8 +80,8 @@ async def analyze(request):
 
 @app.route('/randoms', methods=['GET'])
 async def randoms(request):
-    response = await requests.get('https://source.unsplash.com/500x500/')
-    imgraw = await BytesIO(response.content)
+    response = requests.get('https://source.unsplash.com/500x500/')
+    imgraw = BytesIO(response.content)
     img = open_image(imgraw)
 
     prediction = learn.predict(img)[2]

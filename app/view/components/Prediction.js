@@ -62,8 +62,8 @@ class Prediction extends React.Component{
   }
   getRandoms=(e)=>{
     this.state.goFetch ? console.log(this.randoms()) : null;
-    // fetch("https://unsplash100labels.herokuapp.com/randoms")
-    fetch("https://swapi.co/api/planets/1/")
+    fetch("https://unsplash100labels.herokuapp.com/randoms")
+    // fetch("https://swapi.co/api/planets/1/")
     .then(function(response) {
       return response.json();
     })
