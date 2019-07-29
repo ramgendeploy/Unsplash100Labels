@@ -71,8 +71,9 @@ var Prediction = function (_React$Component) {
 
     _this.getRandoms = function (e) {
       _this.state.goFetch ? console.log(_this.randoms()) : null;
-      // fetch("https://unsplash100labels.herokuapp.com/randoms")
-      fetch("https://swapi.co/api/planets/1/").then(function (response) {
+      fetch("https://unsplash100labels.herokuapp.com/randoms")
+      // fetch("https://swapi.co/api/planets/1/")
+      .then(function (response) {
         return response.json();
       }).then(function (jsonResponse) {
         _this.setState({ randoms: jsonResponse });
