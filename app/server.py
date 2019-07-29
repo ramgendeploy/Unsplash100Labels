@@ -9,6 +9,7 @@ from starlette.applications import Starlette
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
+import requests
 
 # port
 Port = int(os.environ.get('PORT', 50000))
@@ -77,6 +78,17 @@ async def analyze(request):
 
     return JSONResponse({'result': str(bests)})
 
+@app.route('/randoms', methods=['GET'])
+async def randoms(request):
+    response = await requests.get('https://source.unsplash.com/500x500/')
+    imgraw = await BytesIO(response.content)
+    img = open_image(imgraw)
+
+    prediction = learn.predict(img)[2]
+
+    bests = sorted_prob(classes, prediction)
+
+    return JSONResponse({'result': str(bests)})
 
 if __name__ == '__main__':
     if 'serve' in sys.argv:
