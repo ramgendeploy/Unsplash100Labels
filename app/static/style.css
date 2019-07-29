@@ -73,7 +73,7 @@ button.analyze-button {
     background-color: var(--color-1);
     font-size: 13px;
     color: #ffffff;
-    margin: 0 10px;
+    margin: 5px 10px;
 }
 
 button:focus {
