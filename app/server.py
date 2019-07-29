@@ -23,6 +23,7 @@ path = Path(__file__).parent
 app = Starlette()
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
 app.mount('/static', StaticFiles(directory='app/static'))
+app.mount('/prod-view', StaticFiles(directory='app/static'))
 
 
 async def download_file(url, dest):
@@ -88,7 +89,7 @@ async def randoms(request):
 
     bests = sorted_prob(classes, prediction)
 
-    return JSONResponse({'result': str(bests)})
+    return JSONResponse({'result': str(bests), 'url': response.url})
 
 if __name__ == '__main__':
     if 'serve' in sys.argv:
