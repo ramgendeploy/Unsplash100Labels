@@ -4,7 +4,7 @@ class Prediction extends React.Component{
   constructor(props) {
     super(props);
       this.state = {
-        randomtxt: "heeey brother",
+        randomtxt: "Analyze one Random image",
         selectedFile: null,
         uploadLabel: 'No file chosen 😢',
         imgPickedRaw: '',
@@ -12,7 +12,9 @@ class Prediction extends React.Component{
         btnAnalyze: 'Analyze',
         notifications: '',
         fileSelected: false,
-        randoms: false
+        randoms: false,
+        randomsArr: [],
+        imgRand: ''
       }
     }
   showPicker=()=>{
@@ -45,9 +47,11 @@ class Prediction extends React.Component{
       // xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`,
       xhr.open("POST", `https://unsplash100labels.herokuapp.com/analyze`, true);
       xhr.onerror = function() {alert(xhr.responseText);}
-      xhr.onload = function(e) {
-        if (this.readyState === 4) {
+      xhr.onload = e => {
+        console.log(e)
+        if (e.target.readyState === 4) {
           let response = JSON.parse(e.target.responseText);
+          this.setState({btnAnalyze:"Analyze"})
           
           showResult(JSON.parse(response["result"]), "result-ul")
         }  
@@ -61,14 +65,22 @@ class Prediction extends React.Component{
     }
   }
   getRandoms=(e)=>{
-    this.state.goFetch ? console.log(this.randoms()) : null;
+    this.setState({
+      randomtxt: "Obtaining..."
+    })
     fetch("https://unsplash100labels.herokuapp.com/randoms")
-    // fetch("https://swapi.co/api/planets/1/")
     .then(function(response) {
       return response.json();
     })
     .then(jsonResponse => {
-      this.setState({randoms: jsonResponse})
+      this.setState({
+        randomsArr: JSON.parse(jsonResponse.result),
+        imgRand: jsonResponse.url,
+        randoms: true,
+        randomtxt: "Analyze one Random image"
+      })
+      showResult(this.state.randomsArr, "result-ulRand")
+
     }); 
   }
   render(){
@@ -86,11 +98,10 @@ class Prediction extends React.Component{
           className='choose-file-button' 
           type='button' 
           onClick={this.showPicker}>Select Image 😁 </button>
-        <div className='upload-label'>
-          <label id='upload-label'>
-            {this.state.uploadLabel}
-          </label>
-        </div>
+        <label id='upload-label'>
+          {this.state.uploadLabel}
+        </label>
+        
         <div className='prediction'>
           <img 
             id='image-picked' 
@@ -116,11 +127,25 @@ class Prediction extends React.Component{
               id='analyze-button' 
               className='analyze-button' 
               type='button' 
-              onClick={this.getRandoms}>Analiyze 10 Randoms</button>
+              onClick={this.getRandoms}>{this.state.randomtxt}</button>
         </div>
 
         <span>{this.state.notifications}</span>
-        <TenRandoms randoms={this.state.randoms}/>
+        {/* <TenRandoms randoms={this.state.randoms}/> */}
+        <div className='prediction'>
+          <img 
+            id='image-picked' 
+            className={ this.state.randoms ? null : 'no-display'} 
+            alt='Chosen Image'
+            src={this.state.imgRand} 
+            height='200'/>
+
+          <div className='result-label'>
+            <ul id='result-ulRand'>
+        
+            </ul>
+          </div>  
+        </div>
       </div>
     )
   }
