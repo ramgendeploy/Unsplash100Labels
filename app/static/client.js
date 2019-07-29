@@ -2,18 +2,20 @@ var el = x => document.getElementById(x);
 
 let classes = ["airplane", "ambulance", "animal", "artist", "aurora", "baby", "beach", "bear", "bicycle", "bird", "boats", "books", "bridge", "building", "bus", "cars", "castle", "cat", "city", "clouds", "college", "concert", "couple", "crops", "dance", "desert", "dessert", "doctor", "dog", "dolphins", "field", "fire", "food", "golf", "grandfather", "grandmother", "grass", "horse", "hospital", "house", "library", "lights", "man", "moon", "mountain", "music", "nature", "neon", "nurse", "ocean", "painting", "palm", "person", "phone", "rainforest", "restaurant", "river", "robots", "rocks", "shirt", "shop", "sign", "sky", "soccer", "sports", "stars", "storm", "street", "sun", "temple", "tree", "truck", "vegetable", "water", "waves", "weed", "windows", "woman", "wood"]
 
-function showPicker() {
-  el("file-input").click();
+function showPicker(e) {
+  // e.click();
+  console.log(e.target)
 }
 
-function showPicked(input) {
-  el("upload-label").innerHTML = input.files[0].name;
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    el("image-picked").src = e.target.result;
-    el("image-picked").className = "";
-  };
-  reader.readAsDataURL(input.files[0]);
+function showPicked(e) {
+  console.log(e)
+  // el("upload-label").innerHTML = input.files[0].name;
+  // var reader = new FileReader();
+  // reader.onload = function(e) {
+  //   el("image-picked").src = e.target.result;
+  //   el("image-picked").className = "";
+  // };
+  // reader.readAsDataURL(input.files[0]);
 }
 
 function showResult(arr,dest){

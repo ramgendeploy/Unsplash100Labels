@@ -1,12 +1,13 @@
-import Header from './components/header.js'
+import Header from './components/Header.js'
+import Prediction from './components/Prediction.js'
+
 const appElem = document.getElementById('app')
 
 function App(){
     return (
         <div>
             <Header />
-            <h1>This is working</h1>
-
+            <Prediction />
         </div>
         
         )

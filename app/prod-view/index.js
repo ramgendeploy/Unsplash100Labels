@@ -1,4 +1,6 @@
-import Header from './components/header.js';
+import Header from './components/Header.js';
+import Prediction from './components/Prediction.js';
+
 var appElem = document.getElementById('app');
 
 function App() {
@@ -6,11 +8,7 @@ function App() {
         'div',
         null,
         React.createElement(Header, null),
-        React.createElement(
-            'h1',
-            null,
-            'This is working'
-        )
+        React.createElement(Prediction, null)
     );
 }
 

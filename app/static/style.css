@@ -1,3 +1,4 @@
+
 *, *:before, *:after {
     box-sizing: border-box;
 }
@@ -102,6 +103,7 @@ span.perc{
 img#image-picked {
     align-self: center;
     justify-self: center;
+    margin: 10px;
 }
 
 .result-label {
