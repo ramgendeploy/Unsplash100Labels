@@ -8,7 +8,7 @@ The labels are:
 (yes they are 99 not 100 😅)
 The app [Unsplash100Labels](https://unsplash100labels.herokuapp.com/) is deployed on heroku using a ported version to heroku
 of this guide [fastai-Guide](https://course.fast.ai/deployment_render.html),
-# "Ported" 😂
+# "Ported" 
 To port the fastai-Guide:
 * Clone the git repository in [fastai-Guide](https://course.fast.ai/deployment_render.html)
 * add a Procfile and put ```web: python app/server.py serve``` in it
