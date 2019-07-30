@@ -6,7 +6,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-import TenRandoms from "./TenRandoms.js";
+// import TenRandoms from "./TenRandoms.js";
 var el = function el(x) {
   return document.getElementById(x);
 };
@@ -82,14 +82,14 @@ var Prediction = function (_React$Component) {
           randomsArr: JSON.parse(jsonResponse.result),
           imgRand: jsonResponse.url,
           randoms: true,
-          randomtxt: "Analyze one Random image"
+          randomtxt: "Random image"
         });
         showResult(_this.state.randomsArr, "result-ulRand");
       });
     };
 
     _this.state = {
-      randomtxt: "Analyze one Random image",
+      randomtxt: "Random image",
       selectedFile: null,
       uploadLabel: 'No file chosen 😢',
       imgPickedRaw: '',
@@ -109,7 +109,7 @@ var Prediction = function (_React$Component) {
     value: function render() {
       return React.createElement(
         "div",
-        { className: "content center" },
+        { className: "content" },
         React.createElement("input", {
           id: "file-input",
           className: "no-display",
@@ -194,4 +194,4 @@ var Prediction = function (_React$Component) {
   return Prediction;
 }(React.Component);
 
-export default Prediction;
+// export default Prediction;

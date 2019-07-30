@@ -151,4 +151,4 @@ class Prediction extends React.Component{
   }
 }
 
-export default Prediction
+// export default Prediction
