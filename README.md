@@ -10,14 +10,14 @@ The app [Unsplash100Labels](https://unsplash100labels.herokuapp.com/) is deploye
 of this guide [fastai-Guide](https://course.fast.ai/deployment_render.html),
 # "Ported" 😂
 To port the fastai-Guide:
-* Clone the [fastai-Guide](https://course.fast.ai/deployment_render.html)
+* Clone the git repository in [fastai-Guide](https://course.fast.ai/deployment_render.html)
 * add a Procfile and put ```web: python app/server.py serve``` in it
 * The in the server.py file 
-  * import os library
-  * set the variable Port = int(os.environ.get('PORT', 50000))
-  * in uvicorn.run set port to Port ```uvicorn.run(app=app, host='0.0.0.0', port=Port, log_level="info")```
+  * Import os library
+  * Set the variable: ```Port = int(os.environ.get('PORT', 50000))```
+  * In uvicorn.run set port to Port ```uvicorn.run(app=app, host='0.0.0.0', **port=Port**, log_level="info")```
 * If heroku is not using the correct version of python, add a file runtime.txt with ```python-3.7.3```
 
 # Data extraction and Model training
-You can see the process of training and obtaining the data in the notebook,
+You can see the process of training and obtaining the data in [this notebook](https://colab.research.google.com/drive/1GP_9go6NqARmDQ7hAYeydKnKpxfhlZ_O#scrollTo=1Y36gobKUQwP),
 I use fast.ai library to train it and Unsplash api to get the data.
