@@ -78,34 +78,23 @@ button.analyze-button {
 button:focus {
     outline: 0;
 }
-
-ul#result-ul li {
+ul#result-ul, ul#result-ulRand{
+    list-style: none;
+    margin:0;
+    padding: 0;
+}
+ul#result-ul li, ul#result-ulRand li {
     text-transform: capitalize;
     font-size: 20px;
     display: flex;
     flex-direction: row;
     padding: 5px 15px;
     justify-content: space-between;
-    /* align-content: space-evenly; */
     border-style: dashed;
     border-color: var(--color-1);
     background: white;
     border-width: 1px;
     margin: 5px;
-}
-ul#result-ulRand li {
-    text-transform: capitalize;
-    font-size: 20px;
-    display: flex;
-    flex-direction: row;
-    padding: 5px 15px;
-    justify-content: space-between;
-    /* align-content: space-evenly; */
-    border-style: dashed;
-    border-color: var(--color-1);
-    background: white;
-    border-width: 1px;
-    margin: 5px; 
 }
 span.perc_wrap {
     width: 45%;
@@ -122,11 +111,13 @@ span.perc{
     height: inherit;
 }
 
-.prediction{
-    display: grid;
-    /* grid-template-rows: 100%; */
-    grid-template-columns: auto auto;
+.prediction {
+    display: flex;
     width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 10px 0;
 }
 
 img#image-picked {
@@ -140,7 +131,7 @@ img#image-picked {
     padding: 10px;
     font-size: 13px;
     justify-self: center;
-    width: 100%;
+    width: 320px;
     align-self: center;
     place-self: center;
 }
