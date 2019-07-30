@@ -1,5 +1,5 @@
-import Header from './Header.js';
-import Prediction from './Prediction.js';
+// import Header from './Header.js';
+// import Prediction from './Prediction.js';
 
 var appElem = document.getElementById('app');
 

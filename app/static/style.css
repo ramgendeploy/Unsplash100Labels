@@ -21,12 +21,7 @@ body {
     display: none;
 }
 
-.center {
-    margin: auto;
-    padding: 10px 50px;
-    text-align: center;
-    font-size: 14px;
-}
+
 
 .title {
     font-size: 30px;
@@ -37,7 +32,10 @@ body {
 }
 
 .content {
-    
+    margin: auto;
+    padding: 10px 50px;
+    text-align: center;
+    font-size: 14px;
 }
 
 .analyze {
@@ -67,7 +65,7 @@ button.choose-file-button {
 }
 
 button.analyze-button {
-    width: 200px;
+    width: 110px;
     height: 40px;
     border: solid 1px var(--color-1);
     border-radius: 2px;
@@ -118,7 +116,7 @@ span.perc_wrap {
     box-sizing: content-box;
 }
 span.perc{
-    background: cadetblue;
+    background: var(--color-5);
     display: flex;
     align-items: center;
     height: inherit;
@@ -134,7 +132,8 @@ span.perc{
 img#image-picked {
     align-self: center;
     justify-self: center;
-    margin: 10px;
+    padding: 10px;
+    background: var(--color-5);
 }
 
 .result-label {
