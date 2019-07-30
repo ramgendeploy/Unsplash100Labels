@@ -19,5 +19,5 @@ To port the fastai-Guide:
 * If heroku is not using the correct version of python, add a file runtime.txt with ```python-3.7.3```
 
 # Data extraction and Model training
-You can see the process of training and obtaining the data in [this notebook](https://colab.research.google.com/drive/1GP_9go6NqARmDQ7hAYeydKnKpxfhlZ_O#scrollTo=1Y36gobKUQwP),
+You can see the process of training and obtaining the data in [this notebook](https://colab.research.google.com/drive/1GP_9go6NqARmDQ7hAYeydKnKpxfhlZ_O),
 I use fast.ai library to train it and Unsplash api to get the data.
