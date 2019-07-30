@@ -15,7 +15,7 @@ To port the fastai-Guide:
 * The in the server.py file 
   * Import os library
   * Set the variable: ```Port = int(os.environ.get('PORT', 50000))```
-  * In uvicorn.run set port to Port ```uvicorn.run(app=app, host='0.0.0.0', **port=Port**, log_level="info")```
+  * In uvicorn.run set port to Port ```uvicorn.run(app=app, host='0.0.0.0', port=Port, log_level="info")```
 * If heroku is not using the correct version of python, add a file runtime.txt with ```python-3.7.3```
 
 # Data extraction and Model training
