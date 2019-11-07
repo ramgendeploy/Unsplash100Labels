@@ -90,11 +90,13 @@ ul#result-ul li, ul#result-ulRand li {
     flex-direction: row;
     padding: 5px 15px;
     justify-content: space-between;
-    border-style: dashed;
+    border-style: groove;
     border-color: var(--color-1);
     background: white;
     border-width: 1px;
     margin: 5px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 }
 span.perc_wrap {
     width: 45%;
@@ -123,8 +125,10 @@ span.perc{
 img#image-picked {
     align-self: center;
     justify-self: center;
-    padding: 10px;
+    padding: 4px;
     background: var(--color-5);
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px 1px #00000042;
 }
 
 .result-label {
