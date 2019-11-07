@@ -140,7 +140,7 @@ class Prediction extends React.Component{
             src={this.state.imgRand} 
             height='200'/>
 
-          <div className='result-label'>
+          <div className='result-label' style={{ backgroundImage: this.state.imgRand }}>
             <ul id='result-ulRand'>
         
             </ul>
