@@ -10,7 +10,7 @@ of this guide [fastai-Guide](https://course.fast.ai/deployment_render.html),
 # Original guide
 * Original guide for Render [Fast.ai course](https://course.fast.ai/deployment_render.html)
 # Guide
-[Rama Blog](https://blog.ramagg.com)
+* [Rama Blog](https://blog.ramagg.com)
 
 # Data extraction and Model training
 You can see the process of training and obtaining the data in [this notebook](https://colab.research.google.com/drive/1GP_9go6NqARmDQ7hAYeydKnKpxfhlZ_O),
