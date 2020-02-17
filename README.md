@@ -7,10 +7,11 @@ The labels are:
 ```
 The app [Unsplash100Labels](https://unsplash100labels.herokuapp.com/) is deployed on heroku using a ported version to heroku
 of this guide [fastai-Guide](https://course.fast.ai/deployment_render.html),
+# Heroku Guide
+* [Rama Blog](https://blog.ramagg.com)
+
 # Original guide
 * Original guide for Render [Fast.ai course](https://course.fast.ai/deployment_render.html)
-# Guide
-* [Rama Blog](https://blog.ramagg.com)
 
 # Data extraction and Model training
 You can see the process of training and obtaining the data in [this notebook](https://colab.research.google.com/drive/1GP_9go6NqARmDQ7hAYeydKnKpxfhlZ_O),
