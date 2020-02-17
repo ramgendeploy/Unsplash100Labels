@@ -8,10 +8,17 @@ The labels are:
 The app [Unsplash100Labels](https://unsplash100labels.herokuapp.com/) is deployed on heroku using a ported version to heroku
 of this guide [fastai-Guide](https://course.fast.ai/deployment_render.html),
 # Heroku Guide
-* [Rama Blog](https://blog.ramagg.com)
+[Rama Blog](https://blog.ramagg.com)
 
 # Original guide
-* Original guide for Render [Fast.ai course](https://course.fast.ai/deployment_render.html)
+To port the fastai-Guide:
+Follow this guide [fastai-Guide](https://course.fast.ai/deployment_render.html)
+add a Procfile and put ```web: python app/server.py serve``` in it
+Then in the server.py file 
+  * import os library ```import os```
+  * Set the variable: ```Port = int(os.environ.get('PORT', 50000))```
+  * In uvicorn.run set port to Port ```uvicorn.run(app=app, host='0.0.0.0', port=Port, log_level="info")```
+If heroku is not using the correct version of python, add a file runtime.txt with ```python-3.7.3```
 
 # Data extraction and Model training
 You can see the process of training and obtaining the data in [this notebook](https://colab.research.google.com/drive/1GP_9go6NqARmDQ7hAYeydKnKpxfhlZ_O),
