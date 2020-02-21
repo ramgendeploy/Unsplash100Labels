@@ -1,0 +1,24 @@
+{
+  "name": "Unsplash100Labels",
+  "version": "1.0.0",
+  "description": "This is a classifier trained over 100 labels of unsplash photos\r I trained it with the fast.ai library [fast.ai](https://github.com/fastai/fastai)\r The labels are:\r ```\r [\"airplane\", \"ambulance\", \"animal\", \"artist\", \"aurora\", \"baby\", \"beach\", \"bear\", \"bedroom\", \"bicycle\", \"bird\", \"boats\", \"book\", \"bridge\", \"building\", \"bus\", \"cars\", \"castle\", \"cat\", \"city\", \"clouds\", \"college\", \"column\", \"concert\", \"couple\", \"crops\", \"dance\", \"dawn\", \"deer\", \"desert\", \"dessert\", \"doctor\", \"dog\", \"dolphins\", \"field\", \"fire\", \"floor\", \"food\", \"golf\", \"graffiti\", \"grandfather\", \"grandmother\", \"grass\", \"hair\", \"hand\", \"horse\", \"hospital\", \"house\", \"human\", \"insect\", \"kid\", \"library\", \"lights\", \"man\", \"moon\", \"mountain\", \"music\", \"nature\", \"neon\", \"nurse\", \"ocean\", \"painting\", \"palm\", \"party\", \"person\", \"phone\", \"plant\", \"rain\", \"rainforest\", \"restaurant\", \"river\", \"robot\", \"rocks\", \"roses\", \"shirt\", \"shop\", \"sign\", \"sky\", \"skyscraper\", \"snow\", \"soccer\", \"sports\", \"stadium\", \"staircase\", \"stars\", \"storm\", \"street\", \"sun\", \"sunrise\", \"temple\", \"tree\", \"truck\", \"vegetable\", \"water\", \"waves\", \"weed\", \"windows\", \"woman\", \"wood\"]\r ```\r # Heroku Guide\r [Rama Blog](https://blog.ramagg.com)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramagg/Unsplash100Labels.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ramagg/Unsplash100Labels/issues"
+  },
+  "homepage": "https://github.com/ramagg/Unsplash100Labels#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-react-app": "^3.1.2"
+  }
+}
