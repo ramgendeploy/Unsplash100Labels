@@ -37,4 +37,4 @@ var TenRandoms = function (_React$Component) {
   return TenRandoms;
 }(React.Component);
 
-// export default TenRandoms;
+export default TenRandoms;
