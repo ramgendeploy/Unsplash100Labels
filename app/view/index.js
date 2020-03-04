@@ -1,11 +1,11 @@
-import Header from './Header.js'
-import Prediction from './Prediction.js'
+// import Header from 'https://ramagg.com/classifier/prod-view/header.js'
+// import Prediction from 'https://ramagg.com/classifier/prod-view/Prediction.js'
 
 const appElem = document.getElementById('app')
 
 function App(){
     return (
-        <div>
+        <div className="Classification">
             <Header />
             <Prediction />
         </div>

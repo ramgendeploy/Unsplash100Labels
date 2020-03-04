@@ -1,34 +1,41 @@
-import TenRandoms from "./TenRandoms.js"
+// import TenRandoms from "./TenRandoms.js"
 var el = x => document.getElementById(x);
 class Prediction extends React.Component{
   constructor(props) {
     super(props);
       this.state = {
-        randomtxt: "Analyze one Random image",
         selectedFile: null,
-        uploadLabel: 'No file chosen 😢',
-        imgPickedRaw: '',
-        imgPicked: false,
+        randomtxt: 'Random',
+        uploadLabel: 'Select an image to classify',
         btnAnalyze: 'Analyze',
+        imgPickedRaw: '',
+        imgRandRaw: '',
         notifications: '',
         fileSelected: false,
+        imgPicked: false,
         randoms: false,
-        randomsArr: [],
-        imgRand: ''
+        analyzing: false,
+        gettingRandoms: false,
+        randomResult: [],
+        labelsresult: [],
       }
     }
   showPicker=()=>{
-    el('file-input').click()
+    if(!this.state.analyzing){
+      el('file-input').click()
+    }
+    else{
+      this.setState({notifications: "Can't select another image, you have to wait for the current! 😁"})
+    }
   }
   showPicked=(e)=>{
-    // console.log(e.target.files)
-    // el("upload-label").innerHTML = 
     this.setState({
       uploadLabel: e.target.files[0].name,
       selectedFile: e.target.files[0],
       notifications: '',
       imgPicked: true,
-      fileSelected: true
+      fileSelected: true,
+      labelsresult: []
     })
     var reader = new FileReader();
     reader.onload = (loaded)=> {
@@ -38,50 +45,67 @@ class Prediction extends React.Component{
     };
     reader.readAsDataURL(e.target.files[0]);
   }
-  analyze=(e)=>{
-    if(this.state.fileSelected){
-      this.setState({btnAnalyze: "Analyzing..."})
+  parseResults=(arr)=>{
+    let result = []
+    for (let i = 0; i < 5; i++) {
+      const element = arr[i];
+      result.push([classes[element[1]],(element[0]*100).toFixed(2)+'%'])
+    }
+    console.log(result)
+    return result
+  }
 
-      let xhr = new XMLHttpRequest();
-      // let loc = window.location;
-      // xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`,
-      xhr.open("POST", `https://unsplash100labels.herokuapp.com/analyze`, true);
-      xhr.onerror = function() {alert(xhr.responseText);}
-      xhr.onload = e => {
-        console.log(e)
-        if (e.target.readyState === 4) {
-          let response = JSON.parse(e.target.responseText);
-          this.setState({btnAnalyze:"Analyze"})
-          
-          showResult(JSON.parse(response["result"]), "result-ul")
-        }  
-      };
-
-      let fileData = new FormData();
-      fileData.append("file", this.state.selectedFile);
-      xhr.send(fileData);
+  sendToAnalyze=(e)=>{
+    if(this.state.fileSelected ){
+      if(!this.state.analyzing){
+        this.setState({btnAnalyze: "Analyzing...", analyzing: true})
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", `https://unsplash100labels.herokuapp.com/analyze`, true);
+        xhr.onerror = function() {alert(xhr.responseText);}
+        xhr.onload = e => {
+          if (e.target.readyState === 4) {
+            let response = JSON.parse(e.target.responseText);
+            let results = this.parseResults(JSON.parse(response["result"]))
+            this.setState({ notifications: '', btnAnalyze:"Analyze", labelsresult: results, analyzing: false })
+          }  
+        };
+        let fileData = new FormData();
+        fileData.append("file", this.state.selectedFile);
+        xhr.send(fileData);
+      }else{
+        this.setState({notifications: "Working on it!"})
+      }
     }else{
-      this.setState({notifications:"Please select a file to analyze!"})
+      this.setState({notifications: "Please select a file to analyze!"})
     }
   }
+  
   getRandoms=(e)=>{
-    this.setState({
-      randomtxt: "Obtaining..."
-    })
-    fetch("https://unsplash100labels.herokuapp.com/randoms")
-    .then(function(response) {
-      return response.json();
-    })
-    .then(jsonResponse => {
+    if(!this.state.gettingRandoms){
       this.setState({
-        randomsArr: JSON.parse(jsonResponse.result),
-        imgRand: jsonResponse.url,
-        randoms: true,
-        randomtxt: "Analyze one Random image"
+        randomtxt: "Obtaining...",
+        gettingRandoms: true
       })
-      showResult(this.state.randomsArr, "result-ulRand")
+  
+      fetch("https://unsplash100labels.herokuapp.com/randoms")
+      .then(function(response) {
+        return response.json();
+      })
+      .then(jsonResponse => {
+        this.setState({
+          randomResult: this.parseResults(JSON.parse(jsonResponse.result)),
+          imgRandRaw: jsonResponse.url,
+          randoms: true,
+          randomtxt: "Random",
+          gettingRandoms: false,
+          notifications: ''
+        })
+      }); 
+    }else{
+      this.setState({notifications: "Working on it!"})
+    }
 
-    }); 
+
   }
   render(){
     return (
@@ -93,59 +117,38 @@ class Prediction extends React.Component{
           name='file'
           accept='image/*'
           onChange={this.showPicked}/>
+        
+        <span className='alert'>{this.state.notifications}</span> 
 
         <button 
           className='choose-file-button' 
           type='button' 
-          onClick={this.showPicker}>Select Image 😁 </button>
+          onClick={this.showPicker}>Select</button>
         <label id='upload-label'>
           {this.state.uploadLabel}
         </label>
-        
-        <div className='prediction'>
-          <img 
-            id='image-picked' 
-            className={ this.state.imgPicked ? null : 'no-display'} 
-            alt='Chosen Image'
-            src={this.state.imgPickedRaw} 
-            height='200'/>
-
-          <div className='result-label'>
-            <ul id='result-ul'>
-        
-            </ul>
-          </div>  
-        </div>
-
         <div className='analyze'>
           <button 
             id='analyze-button' 
             className='analyze-button' 
             type='button' 
-            onClick={this.analyze}>{this.state.btnAnalyze}</button>
+            onClick={this.sendToAnalyze}>{this.state.btnAnalyze}</button>
           <button 
               id='analyze-button' 
               className='analyze-button' 
               type='button' 
               onClick={this.getRandoms}>{this.state.randomtxt}</button>
         </div>
-
-        <span>{this.state.notifications}</span>
-        {/* <TenRandoms randoms={this.state.randoms}/> */}
-        <div className='prediction'>
-          <img 
-            id='image-picked' 
-            className={ this.state.randoms ? null : 'no-display'} 
-            alt='Chosen Image'
-            src={this.state.imgRand} 
-            height='200'/>
-
-          <div className='result-label dd' style={{ backgroundImage: this.state.imgRand, height: 500, widht: 500 }}>
-            <ul id='result-ulRand'>
-        
-            </ul>
-          </div>  
-        </div>
+        <div className='predictionWrap'>     
+          <Image 
+            imgPicked={this.state.imgPicked} 
+            imgPickedRaw ={this.state.imgPickedRaw} 
+            labelsresult={this.state.labelsresult} />
+          <Image 
+            imgPicked={this.state.randoms} 
+            imgPickedRaw ={this.state.imgRandRaw} 
+            labelsresult={this.state.randomResult} />
+        </div>  
       </div>
     )
   }

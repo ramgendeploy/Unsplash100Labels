@@ -9,7 +9,12 @@
     --color-4: rgba(3, 191, 156, 1) ;
     --color-5: rgba(4, 216, 138, 1) ;
 }
-
+#app {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 body {
     background-color: var(--color-3);
@@ -20,22 +25,40 @@ body {
 .no-display {
     display: none;
 }
-
-
-
-.title {
-    font-size: 30px;
-    color: #ffffff;
-    background:var(--color-1);
-    text-align: center;
-    padding: 15px;
+.alert {
+    display: block;
+    padding: 10px;
+    color: #c5ff52;
+    font-size: 14px;
+    margin: 5px;
 }
 
-.content {
-    margin: auto;
-    padding: 10px 50px;
+.title {
+    color: #ffffff;
     text-align: center;
-    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.title h1 {
+    background: var(--color-1);
+    padding: 10px;
+    width: 65vw;
+    margin: 0;
+}
+.ramaTwitter{
+    position: absolute;
+    bottom: -15px;
+    background: var(--color-5);
+    border-radius: 3px;
+    padding: 3px 13px;
+}
+.content {
+    /* margin: auto; */
+    /* padding: 10px 50px; */
+    text-align: center;
+    /* font-size: 14px; */
 }
 
 .analyze {
@@ -47,20 +70,15 @@ body {
     font-size: 12px;
 }
 
-.result-label {
-    margin-top: 0.5em;
-    padding: 10px;
-    font-size: 13px;
-}
 
 button.choose-file-button {
-    width: 200px;
+    width: 70px;
     height: 40px;
     border-radius: 2px;
     background-color: var(--color-4);
     border: solid 1px var(--color-1);
     font-size: 13px;
-    color: var(--color-1);
+    color: var(--color-2);
     margin:0 10px;
 }
 
@@ -82,6 +100,10 @@ ul#result-ul, ul#result-ulRand{
     list-style: none;
     margin:0;
     padding: 0;
+    background: var(--color-1);
+    box-shadow: 0px -1px 3px 1px #00000042;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 ul#result-ul li, ul#result-ulRand li {
     text-transform: capitalize;
@@ -90,20 +112,19 @@ ul#result-ul li, ul#result-ulRand li {
     flex-direction: row;
     padding: 5px 15px;
     justify-content: space-between;
-    border-style: groove;
-    border-color: var(--color-1);
-    background: white;
-    border-width: 1px;
-    margin: 5px;
-    border-radius: 5px;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+
+    border-width: 0;
+    color: white;
+}
+ul#result-ul li:first-child, ul#result-ulRand li:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 span.perc_wrap {
     width: 45%;
-    height: 22px;
+    height: 30px;
     display: block;
     margin: 0 10px;
-    border: 1px solid black;
     box-sizing: content-box;
 }
 span.perc{
@@ -115,27 +136,52 @@ span.perc{
 
 .prediction {
     display: flex;
-    width: 100%;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
-    margin: 10px 0;
+    justify-content: center;
+    margin: 10px;
+    height: 500px;
+    width: 500px;
 }
 
 img#image-picked {
     align-self: center;
     justify-self: center;
-    padding: 4px;
-    background: var(--color-5);
+    background: white;
     border-radius: 10px;
     box-shadow: 1px 1px 3px 1px #00000042;
+    position: absolute;
+    z-index: -1;
+    height: 500px;
+    width: 500px;
 }
-
 .result-label {
-    padding: 10px;
     font-size: 13px;
     justify-self: center;
     width: 320px;
     align-self: center;
-    place-self: center;
+    place-self: flex-end;
+    opacity: .7;
+}
+
+.predictionWrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+@media screen and (max-width: 430px) {
+    img#image-picked {
+        height: 300px;
+        width: 300px;
+    }
+    .result-label {
+        width: 250px;
+    }
+    .prediction {
+        width: initial;
+        height: 300px;
+    }
+    .title h1 {
+        width: 100vw;
+    }
 }

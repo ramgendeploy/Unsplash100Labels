@@ -6,7 +6,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-import TenRandoms from "./TenRandoms.js";
+// import TenRandoms from "./TenRandoms.js"
 var el = function el(x) {
   return document.getElementById(x);
 };
@@ -20,18 +20,21 @@ var Prediction = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Prediction.__proto__ || Object.getPrototypeOf(Prediction)).call(this, props));
 
     _this.showPicker = function () {
-      el('file-input').click();
+      if (!_this.state.analyzing) {
+        el('file-input').click();
+      } else {
+        _this.setState({ notifications: "Can't select another image, you have to wait for the current! 😁" });
+      }
     };
 
     _this.showPicked = function (e) {
-      // console.log(e.target.files)
-      // el("upload-label").innerHTML = 
       _this.setState({
         uploadLabel: e.target.files[0].name,
         selectedFile: e.target.files[0],
         notifications: '',
         imgPicked: true,
-        fileSelected: true
+        fileSelected: true,
+        labelsresult: []
       });
       var reader = new FileReader();
       reader.onload = function (loaded) {
@@ -42,150 +45,150 @@ var Prediction = function (_React$Component) {
       reader.readAsDataURL(e.target.files[0]);
     };
 
-    _this.analyze = function (e) {
+    _this.parseResults = function (arr) {
+      var result = [];
+      for (var i = 0; i < 5; i++) {
+        var element = arr[i];
+        result.push([classes[element[1]], (element[0] * 100).toFixed(2) + '%']);
+      }
+      console.log(result);
+      return result;
+    };
+
+    _this.sendToAnalyze = function (e) {
       if (_this.state.fileSelected) {
-        _this.setState({ btnAnalyze: "Analyzing..." });
-
-        var xhr = new XMLHttpRequest();
-        // let loc = window.location;
-        // xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`,
-        xhr.open("POST", "https://unsplash100labels.herokuapp.com/analyze", true);
-        xhr.onerror = function () {
-          alert(xhr.responseText);
-        };
-        xhr.onload = function (e) {
-          console.log(e);
-          if (e.target.readyState === 4) {
-            var response = JSON.parse(e.target.responseText);
-            _this.setState({ btnAnalyze: "Analyze" });
-
-            showResult(JSON.parse(response["result"]), "result-ul");
-          }
-        };
-
-        var fileData = new FormData();
-        fileData.append("file", _this.state.selectedFile);
-        xhr.send(fileData);
+        if (!_this.state.analyzing) {
+          _this.setState({ btnAnalyze: "Analyzing...", analyzing: true });
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", 'https://unsplash100labels.herokuapp.com/analyze', true);
+          xhr.onerror = function () {
+            alert(xhr.responseText);
+          };
+          xhr.onload = function (e) {
+            if (e.target.readyState === 4) {
+              var response = JSON.parse(e.target.responseText);
+              var results = _this.parseResults(JSON.parse(response["result"]));
+              _this.setState({ notifications: '', btnAnalyze: "Analyze", labelsresult: results, analyzing: false });
+            }
+          };
+          var fileData = new FormData();
+          fileData.append("file", _this.state.selectedFile);
+          xhr.send(fileData);
+        } else {
+          _this.setState({ notifications: "Working on it!" });
+        }
       } else {
         _this.setState({ notifications: "Please select a file to analyze!" });
       }
     };
 
     _this.getRandoms = function (e) {
-      _this.setState({
-        randomtxt: "Obtaining..."
-      });
-      fetch("https://unsplash100labels.herokuapp.com/randoms").then(function (response) {
-        return response.json();
-      }).then(function (jsonResponse) {
+      if (!_this.state.gettingRandoms) {
         _this.setState({
-          randomsArr: JSON.parse(jsonResponse.result),
-          imgRand: jsonResponse.url,
-          randoms: true,
-          randomtxt: "Analyze one Random image"
+          randomtxt: "Obtaining...",
+          gettingRandoms: true
         });
-        showResult(_this.state.randomsArr, "result-ulRand");
-      });
+
+        fetch("https://unsplash100labels.herokuapp.com/randoms").then(function (response) {
+          return response.json();
+        }).then(function (jsonResponse) {
+          _this.setState({
+            randomResult: _this.parseResults(JSON.parse(jsonResponse.result)),
+            imgRandRaw: jsonResponse.url,
+            randoms: true,
+            randomtxt: "Random",
+            gettingRandoms: false,
+            notifications: ''
+          });
+        });
+      } else {
+        _this.setState({ notifications: "Working on it!" });
+      }
     };
 
     _this.state = {
-      randomtxt: "Analyze one Random image",
       selectedFile: null,
-      uploadLabel: 'No file chosen 😢',
-      imgPickedRaw: '',
-      imgPicked: false,
+      randomtxt: 'Random',
+      uploadLabel: 'Select an image to classify',
       btnAnalyze: 'Analyze',
+      imgPickedRaw: '',
+      imgRandRaw: '',
       notifications: '',
       fileSelected: false,
+      imgPicked: false,
       randoms: false,
-      randomsArr: [],
-      imgRand: ''
+      analyzing: false,
+      gettingRandoms: false,
+      randomResult: [],
+      labelsresult: []
     };
     return _this;
   }
 
   _createClass(Prediction, [{
-    key: "render",
+    key: 'render',
     value: function render() {
       return React.createElement(
-        "div",
-        { className: "content center" },
-        React.createElement("input", {
-          id: "file-input",
-          className: "no-display",
-          type: "file",
-          name: "file",
-          accept: "image/*",
+        'div',
+        { className: 'content center' },
+        React.createElement('input', {
+          id: 'file-input',
+          className: 'no-display',
+          type: 'file',
+          name: 'file',
+          accept: 'image/*',
           onChange: this.showPicked }),
         React.createElement(
-          "button",
-          {
-            className: "choose-file-button",
-            type: "button",
-            onClick: this.showPicker },
-          "Select Image \uD83D\uDE01 "
+          'span',
+          { className: 'alert' },
+          this.state.notifications
         ),
         React.createElement(
-          "label",
-          { id: "upload-label" },
+          'button',
+          {
+            className: 'choose-file-button',
+            type: 'button',
+            onClick: this.showPicker },
+          'Select'
+        ),
+        React.createElement(
+          'label',
+          { id: 'upload-label' },
           this.state.uploadLabel
         ),
         React.createElement(
-          "div",
-          { className: "prediction" },
-          React.createElement("img", {
-            id: "image-picked",
-            className: this.state.imgPicked ? null : 'no-display',
-            alt: "Chosen Image",
-            src: this.state.imgPickedRaw,
-            height: "200" }),
+          'div',
+          { className: 'analyze' },
           React.createElement(
-            "div",
-            { className: "result-label" },
-            React.createElement("ul", { id: "result-ul" })
-          )
-        ),
-        React.createElement(
-          "div",
-          { className: "analyze" },
-          React.createElement(
-            "button",
+            'button',
             {
-              id: "analyze-button",
-              className: "analyze-button",
-              type: "button",
-              onClick: this.analyze },
+              id: 'analyze-button',
+              className: 'analyze-button',
+              type: 'button',
+              onClick: this.sendToAnalyze },
             this.state.btnAnalyze
           ),
           React.createElement(
-            "button",
+            'button',
             {
-              id: "analyze-button",
-              className: "analyze-button",
-              type: "button",
+              id: 'analyze-button',
+              className: 'analyze-button',
+              type: 'button',
               onClick: this.getRandoms },
             this.state.randomtxt
           )
         ),
         React.createElement(
-          "span",
-          null,
-          this.state.notifications
-        ),
-        React.createElement(
-          "div",
-          { className: "prediction" },
-          React.createElement("img", {
-            id: "image-picked",
-            className: this.state.randoms ? null : 'no-display',
-            alt: "Chosen Image",
-            src: this.state.imgRand,
-            height: "200" }),
-          React.createElement(
-            "div",
-            { className: "result-label dd", style: { backgroundImage: this.state.imgRand, height: 500, widht: 500 } },
-            React.createElement("ul", { id: "result-ulRand" })
-          )
+          'div',
+          { className: 'predictionWrap' },
+          React.createElement(Image, {
+            imgPicked: this.state.imgPicked,
+            imgPickedRaw: this.state.imgPickedRaw,
+            labelsresult: this.state.labelsresult }),
+          React.createElement(Image, {
+            imgPicked: this.state.randoms,
+            imgPickedRaw: this.state.imgRandRaw,
+            labelsresult: this.state.randomResult })
         )
       );
     }

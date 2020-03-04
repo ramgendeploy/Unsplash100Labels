@@ -6,7 +6,7 @@ class TenRandoms extends React.Component {
       randoms: []
     }
   }
-  componentDidMount=()=>{
+  componentDidMount = () => {
 
   }
   render(){
@@ -14,4 +14,4 @@ class TenRandoms extends React.Component {
   }
 }
 
-export default TenRandoms
+// export default TenRandoms
