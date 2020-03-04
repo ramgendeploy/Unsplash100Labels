@@ -59,7 +59,7 @@ class Prediction extends React.Component{
       if(!this.state.analyzing){
         this.setState({btnAnalyze: "Analyzing...", analyzing: true})
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", `https://unsplash100labels.herokuapp.com/analyze`, true);
+        xhr.open("POST", `/analyze`, true);
         xhr.onerror = function() {alert(xhr.responseText);}
         xhr.onload = e => {
           if (e.target.readyState === 4) {
@@ -86,7 +86,7 @@ class Prediction extends React.Component{
         gettingRandoms: true
       })
   
-      fetch("https://unsplash100labels.herokuapp.com/randoms")
+      fetch("/randoms")
       .then(function(response) {
         return response.json();
       })

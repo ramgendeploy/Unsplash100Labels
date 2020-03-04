@@ -59,7 +59,7 @@ var Prediction = function (_React$Component) {
         if (!_this.state.analyzing) {
           _this.setState({ btnAnalyze: "Analyzing...", analyzing: true });
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", 'https://unsplash100labels.herokuapp.com/analyze', true);
+          xhr.open("POST", '/analyze', true);
           xhr.onerror = function () {
             alert(xhr.responseText);
           };
@@ -88,7 +88,7 @@ var Prediction = function (_React$Component) {
           gettingRandoms: true
         });
 
-        fetch("https://unsplash100labels.herokuapp.com/randoms").then(function (response) {
+        fetch("/randoms").then(function (response) {
           return response.json();
         }).then(function (jsonResponse) {
           _this.setState({
