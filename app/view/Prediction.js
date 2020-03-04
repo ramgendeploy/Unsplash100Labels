@@ -1,4 +1,3 @@
-// import TenRandoms from "./TenRandoms.js"
 var el = x => document.getElementById(x);
 class Prediction extends React.Component{
   constructor(props) {
