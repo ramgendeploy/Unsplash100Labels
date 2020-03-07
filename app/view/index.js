@@ -3,17 +3,17 @@
 
 const appElem = document.getElementById('app')
 
-function App(){
-    return (
-        <div className="Classification">
-            <Header />
-            <Prediction />
-        </div>
-        
-        )
+function App() {
+  return (
+    <div className="Classification">
+      <Header />
+      <Prediction />
+    </div>
+
+  )
 }
 
 ReactDOM.render(
-    <App />,
-    appElem
+  <App />,
+  appElem
 );
