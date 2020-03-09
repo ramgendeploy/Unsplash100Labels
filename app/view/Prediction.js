@@ -1,4 +1,3 @@
-var el = x => document.getElementById(x);
 class Prediction extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +20,7 @@ class Prediction extends React.Component {
   }
   showPicker = () => {
     if (!this.state.analyzing) {
-      el('file-input').click()
+      document.getElementById('file-input').click()
     }
     else {
       this.setState({ notifications: "Can't select another image, you have to wait for the current! 😁" })
