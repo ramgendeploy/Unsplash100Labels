@@ -8,7 +8,7 @@ The labels are:
 # Heroku Guide
 [Rama Blog](https://blog.ramagg.com)
 
-# Original guide
+# Partialy based on this guide
 To port the fastai-Guide:
 Follow this guide [fastai-Guide](https://course.fast.ai/deployment_render.html)
 add a Procfile and put ```web: python app/server.py serve``` in it
