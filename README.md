@@ -7,6 +7,7 @@ The labels are:
 ```
 # Heroku Guide
 [Rama Blog](https://blog.ramagg.com)
+[Youtube video](https://youtu.be/pjgT0Idv6mk)
 
 # Partialy based on this guide
 To port the fastai-Guide:
